@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인페이지</title>
+    <link rel="stylesheet" href="css/30.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="lib/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        $(function () {
+
+            //로딩페이지
+            setTimeout(function(){
+                // $('.loading').css ({
+                //     'display' : 'none'
+                // })
+                // $('.loading').fadeOut ({
+                // })
+                // $('.loading').fadeOut(2000);
+                // $('.loading').css ({
+                //     'trasform' : 'scale(0)',
+                //     'transition' : '1s'
+                // })
+                    $('.loading figure').css ({
+                        'width' : '1000px',
+                        'height' : '1000px',
+                        'transition' : '1s'
+                    })
+                    $('.loading').fadeOut(2000);//기본은 0.4s
+            //1초 뒤 실행        
+            }, 1000);
+
+
+            //메뉴 클릭하면 nav네비게이션 나타남.
+            //메뉴아이콘을 닫기아이콘으로 변경
+            let headerMenuBtn = document.querySelector('.menu_btn');
+            let headerMenuImage = headerMenuBtn.querySelector('img');
+            let nav = document.querySelector('.nav');
+            let wrap = document.querySelector('#wrap');
+
+            headerMenuBtn.addEventListener('click', () => {
+                if(getComputedStyle(nav).display === 'none') {
+                    nav.style.display = 'block';
+                    headerMenuImage.src = 'img/icons-x1.svg'
+                    wrap.classList.add('on');
+                } else {
+                    nav.style.display = 'none';
+                    headerMenuImage.src = 'img/icons-menu1.svg'
+                    wrap.classList.remove('on');
+                }
+            });
+
+            //header 2차 메뉴 나타나기
+            let depth01 = $('.depth01 > a');
+            depth01.click(function () {
+                //$('.depth02').slideToggle
+                $(this).next().slideToggle();
+                $(this).toggleClass('on');
+
+            })
+
+
+            //script slide 추가
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 1.5,
+                spaceBetween: 10,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2.5,
+                        spaceBetween: 20,
+                    },
+                    768: {
+                        slidesPerView: 3.5,
+                        spaceBetween: 25,
+                    },
+                    1024: {
+                        slidesPerView: 4.5,
+                        spaceBetween: 25,
+                    },
+                },
+            });
+
+
+            //cont02 탭메뉴
+            let tabMenu = $('.cont02 .tab_menu li');
+            let tabList = $('.cont02 .list');
+
+            tabMenu.click(function(){
+                tabMenu.removeClass('on');
+                $(this).addClass('on');
+
+                tabList.removeClass('on')
+
+                console.log($(this).index())
+                tabList.eq($(this).index()).addClass('on')
+            });
+
+
+            //scroll이벤트
+            //헤더 스타일 변경
+            let header = document.querySelector('.header');
+            let headerTop = header.offsetTop;
+            //offsetTop 떨어진 값을 찾아줌.
+            console.log(headerTop)
+
+            window.addEventListener('scroll', () => {
+                let scrollBar = window.scrollY;
+                //headerTop scrollBar 비교
+                //scrollBar값이 더 클 때 실행,
+                //header에게 클래스명 on추가
+                if(headerTop < scrollBar) {
+                    header.classList.add('on');
+                    
+                } else {
+                    header.classList.remove('on');
+                }
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="loading">
+        <!-- <p>로딩 중...</p> -->
+        <figure>
+            <img src="img/img04.jpg" alt="">
+        </figure>
+    </div>
+    <div id="wrap">
+        <header class="header">
+            <div class="inner">
+                <h1>
+                    <a href="#">
+                        <img src="img/logo.png" alt="로고">
+                    </a>
+                </h1>
+                <div class="menu_btn">
+                    <img src="img/icons-menu1.svg" alt="메뉴">
+
+                </div>
+                <nav class="nav">
+                    <ul class="gnb">
+                        <li class="depth01">
+                            <a href="#">menu1</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu1-1</a></li>
+                                <li><a href="#">menu1-2</a></li>
+                                <li><a href="#">menu1-3</a></li>
+                                <li><a href="#">menu1-4</a></li>
+                            </ul>
+                        </li>
+                        <li class="depth01">
+                            <a href="#">menu2</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu2-1</a></li>
+                                <li><a href="#">menu2-2</a></li>
+                                <li><a href="#">menu2-3</a></li>
+                                <li><a href="#">menu2-4</a></li>
+                            </ul>
+                        </li>
+                        <li class="depth01">
+                            <a href="#">menu3</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu3-1</a></li>
+                                <li><a href="#">menu3-2</a></li>
+                                <li><a href="#">menu3-3</a></li>
+                                <li><a href="#">menu3-4</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main>
+            <section class="main_visual">
+                <figure>
+                    <img src="img/img01.jpg" alt="메인이미지">
+                </figure>
+                <h2>빗티힐넌에 미삘샌얼슥인 으미틌춤을</h2>
+            </section>
+
+            <section class="cont01">
+                <h3>콘텐츠 제목 작성</h3>
+                <div class="slide_list">
+                    <!-- swiper / swiper demo / https://swiperjs.com/
+                    reponsive break point-->
+                    <!-- Swiper -->
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img03.jpg" alt="슬라이드이미지1">
+                                    </figure>
+                                    <div>
+                                        <p>5성급</p>
+                                        <h4>아이템 제목</h4>
+                                        <strong>222,000원</strong>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img03.jpg" alt="슬라이드이미지1">
+                                    </figure>
+                                    <div>
+                                        <p>5성급</p>
+                                        <h4>아이템 제목</h4>
+                                        <strong>222,000원</strong>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img03.jpg" alt="슬라이드이미지1">
+                                    </figure>
+                                    <div>
+                                        <p>5성급</p>
+                                        <h4>아이템 제목</h4>
+                                        <strong>222,000원</strong>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img03.jpg" alt="슬라이드이미지1">
+                                    </figure>
+                                    <div>
+                                        <p>5성급</p>
+                                        <h4>아이템 제목</h4>
+                                        <strong>222,000원</strong>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img03.jpg" alt="슬라이드이미지1">
+                                    </figure>
+                                    <div>
+                                        <p>5성급</p>
+                                        <h4>아이템 제목</h4>
+                                        <strong>222,000원</strong>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img03.jpg" alt="슬라이드이미지1">
+                                    </figure>
+                                    <div>
+                                        <p>5성급</p>
+                                        <h4>아이템 제목</h4>
+                                        <strong>222,000원</strong>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cont02">
+                <div class="inner">
+                    <h3>거나루노스에서 화만</h3>
+                    <ul class="tab_menu">
+                        <li class="on">menu1</li>
+                        <li>menu2</li>
+                        <li>menu3</li>
+                        <li>menu4</li>
+                    </ul>
+
+                    <div class="list on">
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_11.jpg" alt="이미지1">
+                                </figure>
+                                <div>
+                                    <h4>menu1</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_11.jpg" alt="이미지2">
+                                </figure>
+                                <div>
+                                    <h4>menu1</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_11.jpg" alt="이미지3">
+                                </figure>
+                                <div>
+                                    <h4>menu1</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_11.jpg" alt="이미지4">
+                                </figure>
+                                <div>
+                                    <h4>menu1</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_12.jpg" alt="이미지1">
+                                </figure>
+                                <div>
+                                    <h4>menu2</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_12.jpg" alt="이미지2">
+                                </figure>
+                                <div>
+                                    <h4>menu2</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_12.jpg" alt="이미지3">
+                                </figure>
+                                <div>
+                                    <h4>menu2</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_12.jpg" alt="이미지4">
+                                </figure>
+                                <div>
+                                    <h4>menu2</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_13.jpg" alt="이미지1">
+                                </figure>
+                                <div>
+                                    <h4>menu3</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_13.jpg" alt="이미지2">
+                                </figure>
+                                <div>
+                                    <h4>menu3</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_13.jpg" alt="이미지3">
+                                </figure>
+                                <div>
+                                    <h4>menu3</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_13.jpg" alt="이미지4">
+                                </figure>
+                                <div>
+                                    <h4>menu3</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_14.jpg" alt="이미지1">
+                                </figure>
+                                <div>
+                                    <h4>menu4</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_14.jpg" alt="이미지2">
+                                </figure>
+                                <div>
+                                    <h4>menu4</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_14.jpg" alt="이미지3">
+                                </figure>
+                                <div>
+                                    <h4>menu4</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/img_14.jpg" alt="이미지4">
+                                </figure>
+                                <div>
+                                    <h4>menu4</h4>
+                                    <strong>21,000원~</strong>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>copyright 2024</p>
+        </footer>
+    </div>
+</body>
+
+</html>
