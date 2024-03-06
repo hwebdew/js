@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인페이지</title>
+ 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/30.css">
+
+    <script src="lib/jquery-3.7.1.min.js"></script>
+    <script src="lib/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script>
+        $(function() {
+            
+            //로딩페이지
+            setTimeout(function(){
+                // $('.loading').css({
+                //     'display' : 'none',
+                // })
+                /*
+                $('.loading').fadeOut();
+                $('.loading').css({
+                    'transform' : 'scale(0)',
+                    'transition' : '1s'
+                })
+                */
+                $('.loading figure').css({
+                    'width' : '3000px',
+                    'height' : '3000px',
+                    'transition' : '2s'
+                })
+                $('.loading').fadeOut(2000);
+            }, 100); // <-0.1초
+
+            //메뉴 클릭하면 nav(네비게이션) 나타남
+            //메뉴아이콘을 닫기아이콘으로 변경
+            let headerMenuBtn = document.querySelector('.menu_btn');
+            let headerMenuImg = headerMenuBtn.querySelector('img');
+            let nav = document.querySelector('.nav');
+            let wrap = document.querySelector('#wrap');
+
+            //headerMenuBtn.addEventListener('click', () => {});
+            headerMenuBtn.addEventListener('click', () => {
+                if(getComputedStyle(nav).display === 'none') {
+                    nav.style.display = 'block';
+                    headerMenuImg.src = 'img/icon_feather_x.svg';
+                    wrap.classList.add('on');
+                } else {
+                    nav.style.display = 'none';
+                    headerMenuImg.src = 'img/icon_feather_menu.svg';
+                    wrap.classList.remove('on');
+                }
+            });//headerMenuBtn.click
+
+
+            //header 2차메뉴 나타나기
+            let depth01 = $('.depth01 > a');
+            depth01.click(function(){
+                //$('.depth02').slideDown(); 모든 depth02가 나타남
+                $(this).next().slideToggle(300);
+                $(this).toggleClass('on');
+            });//depth01.click()
+
+
+            //swiper slide
+            var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1.2, //640px 이하
+            spaceBetween: 14,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                slidesPerView: 2.5,
+                spaceBetween: 14,
+                },
+                768: {
+                slidesPerView: 3.25,
+                spaceBetween: 25,
+                },
+                1024: {
+                slidesPerView: 4.5,
+                spaceBetween: 25,
+                },
+            },
+            });
+
+            //cont02 탭메뉴
+            let tabMenu = $('.cont02 .tab_menu li');
+            let tabList = $('.cont02 .list');
+
+            tabMenu.click(function(){
+                tabMenu.removeClass('on');
+                $(this).addClass('on');
+
+                console.log($(this).index())
+                //tabList.eq(0).addClass('on'); /* eq는 순서*/
+                tabList.removeClass('on');
+                tabList.eq($(this).index()).addClass('on');
+            });
+
+            //scroll이벤트를 이용한 헤더 스타일 변경
+            let header = document.querySelector('.header');
+            let headerTop = header.offsetTop;
+            console.log(headerTop);
+
+            /* 스크롤 이벤트 */
+            window.addEventListener('scroll', () => {
+                let scrollBar = window.scrollY;
+                console.log(scrollBar);
+
+                //headerTop과 scrollBar의 값 비교한 후
+                //scrollBar 값이 더 클 때 실행 -> header에게 클래스명 on 추가
+                if(headerTop < scrollBar) {
+                    //header.addClass('on'); <- jquery 것이라 오류남
+                    header.classList.add('on');
+                } else {
+                    header.classList.remove('on');
+                }
+
+            })//scroll
+            
+
+        });//scrpit end
+    </script>
+
+</head>
+<body>
+    <div class="loading">
+        <!-- <p>로딩중...</p> -->
+        <figure>
+            <img src="img/aroma_02.jpg" alt="">
+        </figure>
+    </div><!-- .loading end -->
+    <div id="wrap">
+        <header class="header">
+            <div class="inner">
+                <h1>
+                    <a href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 106 18" class="svg_logo"><path d="M94.8 18V6.7c0-.4-.3-.8-.8-.8-.4 0-.8.3-.8.8V18h-5.1V5.9C88.1 2.6 90.8 0 94 0s5.9 2.6 5.9 5.9V18h-5.1zm-9.5-5.1h1.8V18H76.9c-2.3 0-4.1-1.8-4.1-4.1V4.1c0-2.3 1.8-4.1 4.1-4.1h10.2v5.1h-1.8v7.8zm-4.5 0V5.1H79c-.6 0-1 .5-1 1v5.7c0 .6.5 1 1 1l1.8.1zM19.4 3.3v-.7c0-1.4 1.1-2.6 2.5-2.6s2.5 1.2 2.5 2.6V18h-5.1v-3.3h-3.5c-1.6 2-4.1 3.3-6.9 3.3C4 18 0 14 0 9s4-9 8.9-9c2.8 0 5.3 1.3 6.9 3.3h3.6zM17.8 8c0 .3.1.7.1 1s0 .7-.1 1h1.6V8h-1.6zm-8.9 5.1c2.3 0 4.1-1.8 4.1-4.1s-1.8-4.1-4.1-4.1S4.8 6.7 4.8 9s1.9 4.1 4.1 4.1zM38.3 1.2c.7.7 1.2 1.8 1.2 2.9V18h-5.1V6.2c0-.6-.5-1-1-1h-5.6c-1.4 0-2.5-1.2-2.5-2.6S26.4 0 27.8 0h7.6c1.1 0 2.2.5 2.9 1.2zM43.1 0c1.4 0 2.5 1.2 2.5 2.6V18h-5.1V2.6c0-1.4 1.1-2.6 2.6-2.6zm23.1 6.4V2.6c0-1.4 1.1-2.6 2.5-2.6s2.5 1.2 2.5 2.6V18h-5.1v-6.4h-1.9c-1.1 3.7-4.5 6.4-8.5 6.4-4.9 0-8.9-4-8.9-9s4-9 8.9-9c4 0 7.4 2.7 8.5 6.4h2zm-10.4 6.7c2.3 0 4.1-1.8 4.1-4.1S58 4.9 55.8 4.9 51.7 6.7 51.7 9s1.8 4.1 4.1 4.1zm47.6 4.9c-1.4 0-2.5-1.2-2.5-2.6s1.1-2.6 2.5-2.6 2.5 1.2 2.5 2.6-1.1 2.6-2.5 2.6z" fill="current"></path></svg>
+                    </a>
+                </h1>
+                <div class="menu_btn">
+                    <img src="img/icon_feather_menu.svg" alt="">
+                </div>
+
+                <nav class="nav">
+                    <ul class="gnb">
+                        <li class="depth01">
+                            <a href="#">menu1</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu1-1</a></li>
+                                <li><a href="#">menu1-2</a></li>
+                                <li><a href="#">menu1-3</a></li>
+                                <li><a href="#">menu1-4</a></li>
+                            </ul><!-- .depth02 end-->
+                        </li><!-- .depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">menu2</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu2-1</a></li>
+                                <li><a href="#">menu2-2</a></li>
+                                <li><a href="#">menu2-3</a></li>
+                                <li><a href="#">menu2-4</a></li>
+                            </ul><!-- .depth01 end-->
+                        </li><!-- .depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">menu3</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu3-1</a></li>
+                                <li><a href="#">menu3-2</a></li>
+                                <li><a href="#">menu3-3</a></li>
+                                <li><a href="#">menu3-4</a></li>
+                            </ul><!-- .depth02 end-->
+                        </li><!-- .depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">menu4</a>
+                            <ul class="depth02">
+                                <li><a href="#">menu4-1</a></li>
+                                <li><a href="#">menu4-2</a></li>
+                                <li><a href="#">menu4-3</a></li>
+                                <li><a href="#">menu4-4</a></li>
+                            </ul><!-- .depth02 end-->
+                        </li><!-- .depth01 end -->
+                    </ul>
+                </nav>
+            </div><!-- .inner end -->
+        </header><!-- .header end-->
+
+        <main>
+            <section class="main_visual">
+                <figure>
+                    <img src="img/img_09.jpg" alt="">
+                </figure>
+                <h2>태국 조용한 힐링, 너로 정했다!</h2>
+            </section><!-- .main_visual end -->
+
+            <section class="cont01">
+                <h3>다시 만나보는 부산</h3>
+                <div class="slide_list">
+                    <!-- Swiper -->
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img_10.jpg" alt="">
+                                    </figure>
+                                    <div>
+                                        <p>부산</p>
+                                        <h4>해변</h4>
+                                        <strong>353,000원</strong>
+                                    </div>
+                                </a>
+                            </div><!-- .swiper-slide end -->
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img_11.jpg" alt="">
+                                    </figure>
+                                    <div>
+                                        <p>부산</p>
+                                        <h4>하늘철도</h4>
+                                        <strong>353,000원</strong>
+                                    </div>
+                                </a>
+                            </div><!-- .swiper-slide end -->
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img_12.jpg" alt="">
+                                    </figure>
+                                    <div>
+                                        <p>부산</p>
+                                        <h4>모래사장</h4>
+                                        <strong>353,000원</strong>
+                                    </div>
+                                </a>
+                            </div><!-- .swiper-slide end -->
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img_13.jpg" alt="">
+                                    </figure>
+                                    <div>
+                                        <p>부산</p>
+                                        <h4>크루즈</h4>
+                                        <strong>353,000원</strong>
+                                    </div>
+                                </a>
+                            </div><!-- .swiper-slide end -->
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img_14.jpg" alt="">
+                                    </figure>
+                                    <div>
+                                        <p>부산</p>
+                                        <h4>언덕마을풍경</h4>
+                                        <strong>353,000원</strong>
+                                    </div>
+                                </a>
+                            </div><!-- .swiper-slide end -->
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <figure>
+                                        <img src="img/img_15.jpg" alt="">
+                                    </figure>
+                                    <div>
+                                        <p>부산</p>
+                                        <h4>광안대교</h4>
+                                        <strong>353,000원</strong>
+                                    </div>
+                                </a>
+                            </div><!-- .swiper-slide end -->
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </section><!-- .cont_01 end -->
+
+            <section class="cont02">
+                <div class="inner">
+                    <h3>도시별 인기 호텔</h3>
+                    <ul class="tab_menu">
+                        <li class="on">후쿠오카</li>
+                        <li>하와이</li>
+                        <li>방콕</li>
+                        <li>뉴욕</li>
+                    </ul><!-- .tab_menu end -->
+
+                    <div class="list on">
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_14.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 후쿠오카</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_02.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 후쿠오카</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_03.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 후쿠오카</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_02.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 후쿠오카</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                    </div><!-- .list 후쿠오카 end -->
+
+                    <div class="list">
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_04.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 하와이</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_05.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 하와이</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_06.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 하와이</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_05.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 하와이</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                    </div><!-- .list 하와이 end -->
+
+                    <div class="list">
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_07.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 방콕</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_08.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 방콕</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_09.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 방콕</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_08.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 방콕</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                    </div><!-- .list 방콕 end -->
+
+                    <div class="list">
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_11.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 뉴욕</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_12.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 뉴욕</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_13.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 뉴욕</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                        <div class="item">
+                            <a href="#">
+                                <figure>
+                                    <img src="img/hotel_12.jpg" alt="">
+                                </figure>
+                                <div>
+                                    <h4>아라후엘라 뉴욕</h4>
+                                    <strong>210,000원~</strong>
+                                </div>
+                            </a>
+                        </div><!-- .item end -->
+                    </div><!-- .list 뉴욕 end -->
+
+
+                </div><!-- .inner end -->
+            </section><!-- .cont_02 end -->
+        </main>
+
+        <footer>
+            <p>copyright 2024 KMS. All right Reserved.</p>
+        </footer>
+    </div><!-- wrap end -->
+    
+</body>
+</html>
